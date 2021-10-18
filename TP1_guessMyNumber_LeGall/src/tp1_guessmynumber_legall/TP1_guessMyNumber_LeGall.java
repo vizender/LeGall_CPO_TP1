@@ -4,6 +4,8 @@
  */
 package tp1_guessmynumber_legall;
 
+import java.util.Random;
+
 /**
  *
  * @author victorlegall
@@ -14,7 +16,15 @@ public class TP1_guessMyNumber_LeGall {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Random generateurAleat = new Random();
+        
+        //1
+        int n1 = generateurAleat.nextInt(100);
+        int n2 = generateurAleat.nextInt(100);
+        int n3 = generateurAleat.nextInt(100);
+        int n4 = generateurAleat.nextInt(100);
+        int n5 = generateurAleat.nextInt(100);
+        System.out.println((n1) + (n2) + (n3) + (n4) + (n5) "\n");     
     }
     
 }
