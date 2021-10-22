@@ -23,6 +23,7 @@ public class TP2_Bieres_LeGall {
         System.out.println(Leffe) ;
         autreBiere.decapsuler();
         System.out.println(autreBiere) ;
+        Heineken.lireEtiquette();
           
        
 
