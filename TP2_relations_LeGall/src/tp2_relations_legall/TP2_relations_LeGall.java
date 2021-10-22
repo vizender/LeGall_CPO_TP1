@@ -39,4 +39,5 @@ public class TP2_relations_LeGall {
     
         reno.liste_voitures[1] = uneMicra ;
         uneMicra.proprietaire = reno ;
+    }
 }
