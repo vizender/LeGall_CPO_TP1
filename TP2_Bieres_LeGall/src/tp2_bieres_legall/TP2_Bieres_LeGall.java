@@ -8,26 +8,23 @@ package tp2_bieres_legall;
  *
  * @author victorlegall
  */
-public class TP2_Bieres_LeGall {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        BouteilleBiere uneBiere = new BouteilleBiere();
-        uneBiere.nom="Cuvée des Trolls";
-        uneBiere.degreAlcool=7.0;
-        uneBiere.brasserie="Dubuisson";
-        uneBiere.ouverte=false;
-        uneBiere.lireEtiquette();
-        BouteilleBiere Leffe = new BouteilleBiere();
-        Leffe.nom="Leffe";
-        Leffe.degreAlcool=6.6;
-        Leffe.brasserie="Abaye de Leffe";
-        Leffe.ouverte=true;
-        Leffe.lireEtiquette();
-        
-        
-    }
+public class TP2_Bieres_LeGall {
+     
     
+    public static void main(String[] args) {
+        BouteilleBiere uneBiere = new BouteilleBiere("Cuvée des trolls", 7.0 ,"Dubuisson") ;
+        BouteilleBiere Leffe = new BouteilleBiere("Leffe", 6.6 ,"Abaye de Leffe") ;
+        BouteilleBiere Heineken = new BouteilleBiere("Heineken", 6.0 ,"Cuvée Irlandaise") ;
+        BouteilleBiere autreBiere = new BouteilleBiere("Cuvée BZH", 7.3 ,"BZH indépendante") ;
+        uneBiere.decapsuler();
+        uneBiere.decapsuler();
+        System.out.println(uneBiere) ;
+        System.out.println(Leffe) ;
+        autreBiere.decapsuler();
+        System.out.println(autreBiere) ;
+          
+       
+
+    }
 }
