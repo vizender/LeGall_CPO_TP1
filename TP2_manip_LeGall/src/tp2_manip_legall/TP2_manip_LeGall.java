@@ -34,7 +34,7 @@ public class TP2_manip_LeGall {
         Moussaka assiette12 = new Moussaka(540);
         Moussaka assiette13 = new Moussaka(600);
         // on pourrait en effet relier des objets differents, avec un "lien de parenté", par exemple un menu qui appelle plusieurs plats : menu1.assiette500(300) donnerait le nombre de calories de l'assiette 500 du menu 1
-        
+        // La condition pour faire des relations est d'inclure l'enfant dans la classe du parent. On peut les lies dans les 2 sens.
         
     }
     
