@@ -24,22 +24,13 @@ public class Grille {
     
     //Ajouter un nouveau jeton
     boolean ajouterJetonDansColonne(Jeton newJeton, int colonne){
-        int sc=0; 
-        for (int i = 0; i<CellulesJeu[0].length; i++){ // on parcours la colonne en partant du bas
-            if (CellulesJeu[i][colonne].jetonCourant!=null){
-                sc+=1; // sc augmente uniquement si la colonne est pleine
-            }
-            else {
+        for (int i = 0; i<CellulesJeu.length; i++){ // on parcours la colonne en partant du bas
+            if (CellulesJeu[i][colonne].jetonCourant==null){
                 CellulesJeu[i][colonne].jetonCourant=newJeton; //si la colonne n'a pas de jeton, on le rajoute
-                break;
+                return true;
             }
         }
-        if (sc==CellulesJeu[0].length){
-            return false; // Si sc a augmenté le nombre de lignes, alors la colonne est pleine
-        }  
-        else {
-            return true; // sinon, la colonne n'etait pas vide
-        }
+        return false;
     }
     
     boolean etreRemplie() {

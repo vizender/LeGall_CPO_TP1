@@ -55,33 +55,53 @@ public class Partie {
     }
     
     void debuterPartie(){
+        int i;
         while(grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==false && grilleJeu.etreGagantPourJoueur(ListeJoueurs[1])==false && grilleJeu.etreRemplie()==false){
             
             grilleJeu.afficherGrilleSurConsole();
             
             if (ListeJoueurs[0].Couleur=="Rouge"){
-                System.out.println("Tour de " + ListeJoueurs[0].Nom);
-                grilleJeu.ajouterJetonDansColonne(ListeJoueurs[0].ListeJetons[ListeJoueurs[0].nombreJetonsRestants-1], sc.nextInt());
-                ListeJoueurs[0].nombreJetonsRestants-=1;
+                System.out.println("Tour de " + ListeJoueurs[0].Nom + ", "  + ListeJoueurs[0].nombreJetonsRestants + " jetons restants");
+                i=sc.nextInt();
+                if (i<=6 && i>=0){
+                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[0].ListeJetons[ListeJoueurs[0].nombreJetonsRestants-1], i)==true){
+                        ListeJoueurs[0].nombreJetonsRestants-=1;
+                    }
+                }
                 
                 grilleJeu.afficherGrilleSurConsole();
                 
-                System.out.println("Tour de " + ListeJoueurs[1].Nom);
-                grilleJeu.ajouterJetonDansColonne(ListeJoueurs[1].ListeJetons[ListeJoueurs[1].nombreJetonsRestants-1], sc.nextInt());
-                ListeJoueurs[1].nombreJetonsRestants-=1;
+                System.out.println("Tour de " + ListeJoueurs[1].Nom + ", "  + ListeJoueurs[1].nombreJetonsRestants + " jetons restants");
+                i=sc.nextInt();
+                if (i<=6 && i>=0){
+                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[1].ListeJetons[ListeJoueurs[1].nombreJetonsRestants-1], i)==true){
+                        ListeJoueurs[1].nombreJetonsRestants-=1; 
+                    }
+                }
             }
             else {
                 System.out.println("Tour de " + ListeJoueurs[1].Nom);
-                grilleJeu.ajouterJetonDansColonne(ListeJoueurs[1].ListeJetons[ListeJoueurs[1].nombreJetonsRestants-1], sc.nextInt());
-                ListeJoueurs[1].nombreJetonsRestants-=1;
+                i=sc.nextInt();
+                if (i<=6 && i>=0){
+                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[1].ListeJetons[ListeJoueurs[1].nombreJetonsRestants-1], i)==true){
+                        ListeJoueurs[1].nombreJetonsRestants-=1;
+                    }
+                }
                 
                 grilleJeu.afficherGrilleSurConsole();
                 
                 System.out.println("Tour de " + ListeJoueurs[0].Nom);
-                grilleJeu.ajouterJetonDansColonne(ListeJoueurs[0].ListeJetons[ListeJoueurs[0].nombreJetonsRestants-1], sc.nextInt());
-                ListeJoueurs[0].nombreJetonsRestants-=1;
+                i=sc.nextInt();
+                if (i<=6 && i>=0){
+                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[0].ListeJetons[ListeJoueurs[0].nombreJetonsRestants-1], i)==true){
+                        ListeJoueurs[0].nombreJetonsRestants-=1;
+                    }
+                }
             }
         }
         grilleJeu.afficherGrilleSurConsole();
+        if(grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==false){
+            System.out.println("pas gagnant");
+        }
     }
 }
