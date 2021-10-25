@@ -14,7 +14,11 @@ public class SP4_Console_LeGall {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Joueur Victor=new Joueur("Victor");
+        Joueur Patrick=new Joueur("Patrick");
+        Partie Jeu=new Partie(Victor, Patrick);
+        Jeu.initialiserPartie();
+        Jeu.debuterPartie();
     }
     
 }
