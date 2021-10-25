@@ -24,16 +24,26 @@ public class Joueur {
     }
     
     boolean recevoirJeton() {
-        if (nombreJetonsRestants>length(Jeton)){
+        if (nombreJetonsRestants>ListeJetons.length){
             return false;
+        }
+        else {
+            nombreJetonsRestants+=1;
+            return true;
         }
     }
     
     void obtenirDesintegrateur() {
-        
+        nombreDesintegrateurs+=1;
     }
     
     boolean utiliserDesintegrateur() {
-        
+        if (nombreDesintegrateurs==0) {
+            return false;
+        }
+        else {
+            nombreDesintegrateurs-=1;
+            return true;
+        }
     }
 }
