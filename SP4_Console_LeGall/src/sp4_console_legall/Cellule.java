@@ -13,12 +13,14 @@ public class Cellule {
     boolean trouNoir;
     boolean desintegrateur;
     
+    //une cellule est vide par defaut
     public Cellule(){
         jetonCourant=null;
         trouNoir=false;
         desintegrateur=false;
     }
     
+    //on affecte un jeton a la cellule
     boolean affecterJeton(Jeton newJeton){
         if (jetonCourant==null){
             jetonCourant=newJeton;

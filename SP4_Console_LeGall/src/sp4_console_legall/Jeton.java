@@ -11,9 +11,12 @@ package sp4_console_legall;
 public class Jeton {
     String Couleur;
     
+    //un jeton se verra attribuer une couleur obligatoirement
     public Jeton(String newColor){
         Couleur = newColor;
     }
+    
+    //verification de la couleur d'un jeton
     String lireCouleur() {
         if (Couleur == "Rouge") {
             return "Rouge";
