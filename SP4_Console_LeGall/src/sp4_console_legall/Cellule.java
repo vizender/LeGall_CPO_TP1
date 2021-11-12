@@ -37,11 +37,35 @@ public class Cellule {
         return jetonCourant;
     }
     
+    boolean supprimerJeton(){
+        if (jetonCourant!=null){
+            jetonCourant=null;
+            return true;
+        }
+        return false;
+    }
+    
     boolean placerTrouNoir(){
         if (trouNoir==false){
             trouNoir=true;
         }
         return false;
+    }
+    
+    boolean placerDesintegrateur(){
+        if (desintegrateur!=false){
+            desintegrateur=true;
+            return true;
+        }
+        return false;
+    }
+    
+    boolean presenceTrouNoir(){
+        return trouNoir==true;
+    }
+    
+    boolean presenceDesintegrateur(){
+        return desintegrateur==true;
     }
     
     String lireCouleurDuJeton(){

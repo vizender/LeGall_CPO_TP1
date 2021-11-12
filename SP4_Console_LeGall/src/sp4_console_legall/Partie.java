@@ -98,9 +98,6 @@ public class Partie {
                 if (grilleJeu.ajouterJetonDansColonne(joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants-1], i)==true){
                     joueurCourant.nombreJetonsRestants-=1;
                     }
-
-                grilleJeu.afficherGrilleSurConsole();
-            
             }
             else if (ch==2){ // Si il veut recuperer le jeton
                 int li;
@@ -127,21 +124,23 @@ public class Partie {
             grilleJeu.afficherGrilleSurConsole(); // On affiche
             if (grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==true && grilleJeu.etreGagantPourJoueur(ListeJoueurs[1])==true){ // Si les 2 gagnent en meme temps, le joueurCourant perds par faute de jeu
                 if (joueurCourant==ListeJoueurs[0]){
-                    System.out.println(ListeJoueurs[1].Nom + " gagne");
+                    System.out.println(ListeJoueurs[1].Nom + " gagne car " + ListeJoueurs[0].Nom + " a fait une faute");
                 }
                 else {
-                    System.out.println(ListeJoueurs[0].Nom + " gagne");
+                    System.out.println(ListeJoueurs[0].Nom + " gagne car " + ListeJoueurs[1].Nom + " a fait une faute");
                 }
                 fin=true;
             }
-            if (grilleJeu.etreGagantPourJoueur(joueurCourant)==true || grilleJeu.etreRemplie()==true){  //On verifie une victoire ou grille remplie
-                if (joueurCourant==ListeJoueurs[0]){
-                    System.out.println(ListeJoueurs[0].Nom + " gagne");
-                }
-                else {
-                    System.out.println(ListeJoueurs[1].Nom + " gagne");
-                }
+            if (grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==true && grilleJeu.etreGagantPourJoueur(ListeJoueurs[1])==false){  //On verifie une victoire du J1
+                System.out.println(ListeJoueurs[0].Nom + " gagne");
                 fin=true;
+            }
+            if (grilleJeu.etreGagantPourJoueur(ListeJoueurs[1])==true && grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==false){  //On verifie une victoire du J2
+                System.out.println(ListeJoueurs[1].Nom + " gagne");
+                fin=true;
+            }
+            if (grilleJeu.etreRemplie()==true){ //On verifie une egalité
+                System.out.println("Egalité, grille remplie");
             }
             if (joueurCourant==ListeJoueurs[0]){
                     joueurCourant=ListeJoueurs[1];
