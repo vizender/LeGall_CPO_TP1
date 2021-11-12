@@ -110,7 +110,7 @@ public class Grille {
         }
     }
     
-    String lireCouleurDuJeton(int colonne, int ligne){
+    String lireCouleurDuJeton(int ligne, int colonne){
         return CellulesJeu[ligne][colonne].lireCouleurDuJeton();
     }
     
@@ -118,12 +118,42 @@ public class Grille {
     boolean etreGagantPourJoueur(Joueur player){
         for (int i=0; i<=5; i++){
             for (int j=0; j<=3; j++){
-                if (CellulesJeu[i][j]==CellulesJeu[i+1][j] && CellulesJeu[i][j]==CellulesJeu[i+2][j] && CellulesJeu[i][j]==CellulesJeu[i+3][j]){
-                return true;
+                if (lireCouleurDuJeton(i,j) != null && lireCouleurDuJeton(i,j+1) != null && lireCouleurDuJeton(i,j+2) != null && lireCouleurDuJeton(i,j+3) != null){
+                    if (lireCouleurDuJeton(i,j) == player.Couleur && lireCouleurDuJeton(i, j+1) == player.Couleur && lireCouleurDuJeton(i, j+2) == player.Couleur && lireCouleurDuJeton(i, j+3) == player.Couleur){
+                        return true;
+                    } 
                 }
-                
-            }
-                
+            }      
+        }
+        
+        for (int i=0; i<=2; i++){
+            for (int j=0; j<=3; j++){
+                if (lireCouleurDuJeton(i,j) != null && lireCouleurDuJeton(i+1,j+1) != null && lireCouleurDuJeton(i+2,j+2) != null && lireCouleurDuJeton(i+3,j+3) != null){
+                    if (lireCouleurDuJeton(i,j) == player.Couleur && lireCouleurDuJeton(i+1, j+1) == player.Couleur && lireCouleurDuJeton(i+2, j+2) == player.Couleur && lireCouleurDuJeton(i+3, j+3) == player.Couleur){
+                        return true;
+                    } 
+                }
+            }      
+        }
+        
+        for (int i=0; i<=2; i++){
+            for (int j=0; j<=6; j++){
+                if (lireCouleurDuJeton(i,j) != null && lireCouleurDuJeton(i+1,j) != null && lireCouleurDuJeton(i+2,j) != null && lireCouleurDuJeton(i+3,j) != null){
+                    if (lireCouleurDuJeton(i,j) == player.Couleur && lireCouleurDuJeton(i+1, j) == player.Couleur && lireCouleurDuJeton(i+2, j) == player.Couleur && lireCouleurDuJeton(i+3, j) == player.Couleur){
+                        return true;
+                    } 
+                }
+            }      
+        }
+        
+        for (int i=3; i<=5; i++){
+            for (int j=0; j<=3; j++){
+                if (lireCouleurDuJeton(i,j) != null && lireCouleurDuJeton(i-1,j+1) != null && lireCouleurDuJeton(i-2,j+2) != null && lireCouleurDuJeton(i-3,j+3) != null){
+                    if (lireCouleurDuJeton(i,j) == player.Couleur && lireCouleurDuJeton(i-1, j+1) == player.Couleur && lireCouleurDuJeton(i-2, j+2) == player.Couleur && lireCouleurDuJeton(i-3, j+3) == player.Couleur){
+                        return true;
+                    } 
+                }
+            }      
         }
         
         return false;
