@@ -4,6 +4,8 @@
  */
 package sp4_console_legall;
 
+import java.util.Random;
+
 /**
  *
  * @author victorlegall
@@ -30,6 +32,13 @@ public class Cellule {
             return false;
         }
     }
+    
+    boolean placerTrouNoir(){
+        Random r = new Random();
+        int i = r.nextInt(7)-1;
+        return false;
+    }
+    
     String lireCouleurDuJeton(){
         
         if (jetonCourant!=null){
