@@ -109,16 +109,25 @@ public class Partie {
             else if (ch==2){ // Si il veut recuperer le jeton
                 int li;
                 int co;
-                do{
-                    System.out.println("A quel ligne récuperer le jeton ? ");
-                    li=sc.nextInt();
-                    System.out.println("Quelle colonne ? ");
-                    co=sc.nextInt();
-                }while(grilleJeu.recupererJeton(li, co)==false && grilleJeu.CellulesJeu[li][co].recupererJeton().Couleur!=joueurCourant.Couleur);
-                
+                int act=0;
+                while (act==0){
+                    do{
+                        System.out.println("A quel ligne récuperer le jeton ? ");
+                        li=sc.nextInt();
+                        System.out.println("Quelle colonne ? ");
+                        co=sc.nextInt();
+                        if(grilleJeu.CellulesJeu[li][co].lireCouleurDuJeton()!=joueurCourant.Couleur){
+                            break;
+                        }
+                        else{
+                            act=1;
+                        }
+                    }while(grilleJeu.recupererJeton(li, co)==false);
+                }
                 if(joueurCourant.ajouterJeton()==true);{
                 joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants+1]=new Jeton(joueurCourant.Couleur);
             }
+                
                 grilleJeu.afficherGrilleSurConsole();
             }
             if (joueurCourant==ListeJoueurs[0]){
