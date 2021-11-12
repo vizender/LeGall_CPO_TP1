@@ -82,12 +82,10 @@ public class Partie {
         int ch;
         boolean fin=false;
         while(fin==false){
-            
             System.out.println("Tour de " + joueurCourant.Nom + ", "  + joueurCourant.nombreJetonsRestants + " jetons restants; Voulez vous:\n1) Poser un jeton\n2) Recuperer un jeton");
             do{
                 ch=sc.nextInt();
             }while(ch<1 || ch>2); // On attends que le joueur choisisse 1 oui 2
-            
             
             if (ch==1){ // si il choisit 1, on pose un jeton normalement
                 System.out.println("Selectionner la colonne :");
@@ -102,41 +100,55 @@ public class Partie {
                     }
 
                 grilleJeu.afficherGrilleSurConsole();
-                if (grilleJeu.etreGagantPourJoueur(joueurCourant)==true || grilleJeu.etreRemplie()==true){ 
-                   fin=true; 
-                }
+            
             }
             else if (ch==2){ // Si il veut recuperer le jeton
                 int li;
                 int co;
-                int act=0;
-                while (act==0){
-                    do{
+                int act=0; // Variable act=action qui stop la boucle act=1 quand l'action est valable
+                while (act==0){ // Le while(act) attends que le joueur recupere un des jetons de sa couleur
+                    do{ // Le do{}while attends qu'on recupere un jeton, quelque soit la couleur (donc dans la grille)
                         System.out.println("A quel ligne récuperer le jeton ? ");
                         li=sc.nextInt();
                         System.out.println("Quelle colonne ? ");
                         co=sc.nextInt();
                         if(grilleJeu.CellulesJeu[li][co].lireCouleurDuJeton()!=joueurCourant.Couleur){
-                            break;
+                            break; // On sort du do{}while;, on recommence la boucle while(act) tant que l'action (act) n'est pas valable
                         }
                         else{
                             act=1;
                         }
-                    }while(grilleJeu.recupererJeton(li, co)==false);
+                    }while(grilleJeu.recupererJeton(li, co)==false);//
                 }
-                if(joueurCourant.ajouterJeton()==true);{
-                joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants+1]=new Jeton(joueurCourant.Couleur);
+                if(joueurCourant.ajouterJeton()==true);{ // Si le joueur recupere un jeton, on le remets dans sa liste de jetons; On considere que pour recuperer un jeton sa liste doit avoir au moins 1 jeton en moins
+                    joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants+1]=new Jeton(joueurCourant.Couleur);
+                }  
             }
-                
-                grilleJeu.afficherGrilleSurConsole();
+            grilleJeu.afficherGrilleSurConsole(); // On affiche
+            if (grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==true && grilleJeu.etreGagantPourJoueur(ListeJoueurs[1])==true){ // Si les 2 gagnent en meme temps, le joueurCourant perds par faute de jeu
+                if (joueurCourant==ListeJoueurs[0]){
+                    System.out.println(ListeJoueurs[1].Nom + " gagne");
+                }
+                else {
+                    System.out.println(ListeJoueurs[0].Nom + " gagne");
+                }
+                fin=true;
+            }
+            if (grilleJeu.etreGagantPourJoueur(joueurCourant)==true || grilleJeu.etreRemplie()==true){  //On verifie une victoire ou grille remplie
+                if (joueurCourant==ListeJoueurs[0]){
+                    System.out.println(ListeJoueurs[0].Nom + " gagne");
+                }
+                else {
+                    System.out.println(ListeJoueurs[1].Nom + " gagne");
+                }
+                fin=true;
             }
             if (joueurCourant==ListeJoueurs[0]){
                     joueurCourant=ListeJoueurs[1];
-                }
-                else {
-                    joueurCourant=ListeJoueurs[0];
-                }
+            }
+            else {
+                joueurCourant=ListeJoueurs[0];
+            }
         }
-        grilleJeu.afficherGrilleSurConsole();
     }           
 }
