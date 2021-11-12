@@ -114,7 +114,11 @@ public class Partie {
                     li=sc.nextInt();
                     System.out.println("Quelle colonne ? ");
                     co=sc.nextInt();
-                }while(grilleJeu.recupererJeton(li, co)==false || grilleJeu.CellulesJeu[li][co].recupererJeton().Couleur!=joueurCourant.Couleur);
+                }while(grilleJeu.recupererJeton(li, co)==false && grilleJeu.CellulesJeu[li][co].recupererJeton().Couleur!=joueurCourant.Couleur);
+                
+                if(joueurCourant.ajouterJeton()==true);{
+                joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants+1]=new Jeton(joueurCourant.Couleur);
+            }
                 grilleJeu.afficherGrilleSurConsole();
             }
             if (joueurCourant==ListeJoueurs[0]){
