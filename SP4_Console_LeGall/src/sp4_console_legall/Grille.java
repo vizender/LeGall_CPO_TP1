@@ -9,6 +9,17 @@ package sp4_console_legall;
  * @author victorlegall
  */
 public class Grille {
+    
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    
     // la grille un tableau a double entree
     Cellule [][] CellulesJeu = new Cellule[6][7];  //6 lignes, 7 colonnes, donc CelluleJeu[1]= premiere ligne, 
     
@@ -65,17 +76,17 @@ public class Grille {
     }
     
     void afficherGrilleSurConsole(){
-        for (int i =0; i<CellulesJeu.length; i++){ //On vide chaque colonne et ligne des jetons, trous noirs et desintegrateurs
+        for (int i=5; i>=0; i--){
             for (int j =0; j<CellulesJeu[0].length; j++){
                 if (CellulesJeu[i][j].jetonCourant==null){
                     System.out.print("  ");
                 }
                 else{
                     if (CellulesJeu[i][j].jetonCourant.Couleur=="Rouge"){
-                        System.out.print("R ");
+                        System.out.print(ANSI_RED + "R ");
                     }
                     else if (CellulesJeu[i][j].jetonCourant.Couleur=="Jaune"){
-                        System.out.print("J ");
+                        System.out.print(ANSI_YELLOW + "J ");
                     }
                     else if (CellulesJeu[i][j].trouNoir==true){
                         System.out.print("N ");
@@ -103,76 +114,19 @@ public class Grille {
         return CellulesJeu[ligne][colonne].lireCouleurDuJeton();
     }
     
-    
-    boolean etreGagnantPourJoueurLignes(Joueur player){
-        for (int i =0; i<CellulesJeu.length; i++){
-            for (int j =0; j<3; j++){
-                if (CellulesJeu[i][j].jetonCourant!=null){ // on verifie le puissance 4 uniquement pour les cellules avec un jeton
-                    if (CellulesJeu[i][j].jetonCourant==CellulesJeu[i][j+1].jetonCourant && CellulesJeu[i][j+1].jetonCourant==CellulesJeu[i][j+2].jetonCourant && CellulesJeu[i][j+2].jetonCourant==CellulesJeu[i][j+3].jetonCourant){
-                        return true; // Si 4 jetons consecutifs sont egaux alors victore
-                    }
-                }
-            }
-        }
-        return false; // si aucune victoire trouvée, on return false
-    }
-    
-    boolean etreGagnantPourJoueurColonnes(Joueur player){ // fonction symetrique a avant, mais avec verif des colonnes
-        for (int i =0; i<2; i++){ 
-            for (int j =0; j<6; j++){
-                if (CellulesJeu[i][j].jetonCourant!=null){
-                    if (CellulesJeu[i][j].jetonCourant==CellulesJeu[i+1][j].jetonCourant && CellulesJeu[i+1][j].jetonCourant==CellulesJeu[i+2][j].jetonCourant && CellulesJeu[i+2][j].jetonCourant==CellulesJeu[i+3][j].jetonCourant){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    boolean etreGagnantPourJoueurDiagMontante(Joueur player){ //Verif des diagonales montantes (lecture de gauche a droite)
-        for (int i =0; i<2; i++){ 
-            for (int j =0; j<3; j++){
-                if (CellulesJeu[i][j].jetonCourant!=null){
-                    if (CellulesJeu[i][j].jetonCourant==CellulesJeu[i+1][j+1].jetonCourant && CellulesJeu[i+1][j+1].jetonCourant==CellulesJeu[i+2][j+2].jetonCourant && CellulesJeu[i+2][j+2].jetonCourant==CellulesJeu[i+3][j+3].jetonCourant){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    boolean etreGagnantPourJoueurDiagDescendante(Joueur player){ //Verif des diagonales montantes (lecture de gauche a droite)
-        for (int i =3; i<5; i++){ 
-            for (int j =0; j<3; j++){
-                if (CellulesJeu[i][j].jetonCourant!=null){
-                    if (CellulesJeu[i][j].jetonCourant==CellulesJeu[i-1][j+1].jetonCourant && CellulesJeu[i-1][j+1].jetonCourant==CellulesJeu[i-2][j+2].jetonCourant && CellulesJeu[i-2][j+2].jetonCourant==CellulesJeu[i-3][j+3].jetonCourant){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
     //On regroupe toutes les verifs en une seule
     boolean etreGagantPourJoueur(Joueur player){
-        if (etreGagnantPourJoueurLignes(player)==true){
-            return true;
-        }
-        else if (etreGagnantPourJoueurColonnes(player)==true){
-            return true;
+        for (int i=0; i<=5; i++){
+            for (int j=0; j<=3; j++){
+                if (CellulesJeu[i][j]==CellulesJeu[i+1][j] && CellulesJeu[i][j]==CellulesJeu[i+2][j] && CellulesJeu[i][j]==CellulesJeu[i+3][j]){
+                return true;
+                }
+                
             }
-        else if (etreGagnantPourJoueurDiagMontante(player)==true){
-            return true;
+                
         }
-        else if (etreGagnantPourJoueurDiagDescendante(player)==true){
-            return true;
-        }
-        else {
-            return false;
-        }
+        
+        return false;
     }
     
     

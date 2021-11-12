@@ -55,53 +55,46 @@ public class Partie {
     }
     
     void debuterPartie(){
+        Random r = new Random();
+        int R = r.nextInt()%2;
+        if (R==0){
+            joueurCourant=ListeJoueurs[0];
+            ListeJoueurs[0].Couleur="ROUGE";
+            ListeJoueurs[1].Couleur="JAUNE";
+            System.out.println(ListeJoueurs[0].Nom + " commence");
+        }
+        else {
+            joueurCourant=ListeJoueurs[1];
+            ListeJoueurs[1].Couleur="ROUGE";
+            ListeJoueurs[0].Couleur="JAUNE";
+            System.out.println(ListeJoueurs[1].Nom + " commence");
+        }
         int i;
-        while(grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==false && grilleJeu.etreGagantPourJoueur(ListeJoueurs[1])==false && grilleJeu.etreRemplie()==false){
+        boolean fin=false;
+        while(fin==false){
+            
+            System.out.println("Tour de " + joueurCourant.Nom + ", "  + joueurCourant.nombreJetonsRestants + " jetons restants");
+            
+            do {
+            i=sc.nextInt();
+            } while(i<0 || i>6);
+            
+            if (grilleJeu.ajouterJetonDansColonne(joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants-1], i)==true){
+                joueurCourant.nombreJetonsRestants-=1;
+                }
             
             grilleJeu.afficherGrilleSurConsole();
+            if (grilleJeu.etreGagantPourJoueur(joueurCourant)==true || grilleJeu.etreRemplie()==true){ 
+               fin=true; 
+            }
             
-            if (ListeJoueurs[0].Couleur=="Rouge"){
-                System.out.println("Tour de " + ListeJoueurs[0].Nom + ", "  + ListeJoueurs[0].nombreJetonsRestants + " jetons restants");
-                i=sc.nextInt();
-                if (i<=6 && i>=0){
-                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[0].ListeJetons[ListeJoueurs[0].nombreJetonsRestants-1], i)==true){
-                        ListeJoueurs[0].nombreJetonsRestants-=1;
-                    }
-                }
-                
-                grilleJeu.afficherGrilleSurConsole();
-                
-                System.out.println("Tour de " + ListeJoueurs[1].Nom + ", "  + ListeJoueurs[1].nombreJetonsRestants + " jetons restants");
-                i=sc.nextInt();
-                if (i<=6 && i>=0){
-                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[1].ListeJetons[ListeJoueurs[1].nombreJetonsRestants-1], i)==true){
-                        ListeJoueurs[1].nombreJetonsRestants-=1; 
-                    }
-                }
+            if (joueurCourant==ListeJoueurs[0]){
+                joueurCourant=ListeJoueurs[1];
             }
             else {
-                System.out.println("Tour de " + ListeJoueurs[1].Nom);
-                i=sc.nextInt();
-                if (i<=6 && i>=0){
-                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[1].ListeJetons[ListeJoueurs[1].nombreJetonsRestants-1], i)==true){
-                        ListeJoueurs[1].nombreJetonsRestants-=1;
-                    }
-                }
-                
-                grilleJeu.afficherGrilleSurConsole();
-                
-                System.out.println("Tour de " + ListeJoueurs[0].Nom);
-                i=sc.nextInt();
-                if (i<=6 && i>=0){
-                    if (grilleJeu.ajouterJetonDansColonne(ListeJoueurs[0].ListeJetons[ListeJoueurs[0].nombreJetonsRestants-1], i)==true){
-                        ListeJoueurs[0].nombreJetonsRestants-=1;
-                    }
-                }
+                joueurCourant=ListeJoueurs[0];
             }
         }
         grilleJeu.afficherGrilleSurConsole();
-        if(grilleJeu.etreGagantPourJoueur(ListeJoueurs[0])==false){
-            System.out.println("pas gagnant");
-        }
-    }
+    }           
 }
