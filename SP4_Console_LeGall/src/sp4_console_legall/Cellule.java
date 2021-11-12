@@ -33,9 +33,14 @@ public class Cellule {
         }
     }
     
+    Jeton recupererJeton(){
+        return jetonCourant;
+    }
+    
     boolean placerTrouNoir(){
-        Random r = new Random();
-        int i = r.nextInt(7)-1;
+        if (trouNoir==false){
+            trouNoir=true;
+        }
         return false;
     }
     
@@ -47,5 +52,14 @@ public class Cellule {
         else{
             return null;
         }
+    }
+    
+    boolean activerTrouNoir(){
+        if (jetonCourant!=null){
+            jetonCourant=null;
+            trouNoir=false;
+            return true;
+        }
+        return false;
     }
 }
