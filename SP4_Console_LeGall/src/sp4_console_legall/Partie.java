@@ -26,26 +26,33 @@ public class Partie {
     
     void attribuerCouleurAuxJoueurs(){
         // on fait un pile ou face pour la couleur des joueurs (aleatoire entre 0 et 1)
-        int i=generateurAleat.nextInt(1);
-        if (i==0){
+        Random r = new Random();
+        int R = r.nextInt(2)%2;
+        if (R==0){
+            joueurCourant=ListeJoueurs[0];
             ListeJoueurs[0].Couleur="Rouge";
             ListeJoueurs[1].Couleur="Jaune";
+            System.out.println(ListeJoueurs[0].Nom + " commence");
+            joueurCourant=ListeJoueurs[0];
         }
         else {
-            ListeJoueurs[1].Couleur="Rouge";
+            joueurCourant=ListeJoueurs[1];
             ListeJoueurs[0].Couleur="Jaune";
+            ListeJoueurs[1].Couleur="Rouge";
+            System.out.println(ListeJoueurs[1].Nom + " commence");
+            joueurCourant=ListeJoueurs[1];
         }
     }
     
     void initialiserPartie(){
-        grilleJeu = new Grille();
         attribuerCouleurAuxJoueurs();
+        grilleJeu = new Grille();
         for (int i=0; i<ListeJoueurs[0].ListeJetons.length;i++){
             if (ListeJoueurs[0].Couleur=="Rouge"){
                 ListeJoueurs[0].ListeJetons[i]=new Jeton("Rouge");
                 ListeJoueurs[1].ListeJetons[i]=new Jeton("Jaune");
             }
-            else{
+            else {
                 ListeJoueurs[1].ListeJetons[i]=new Jeton("Rouge");
                 ListeJoueurs[0].ListeJetons[i]=new Jeton("Jaune");
             }
@@ -55,20 +62,6 @@ public class Partie {
     }
     
     void debuterPartie(){
-        Random r = new Random();
-        int R = r.nextInt()%2;
-        if (R==0){
-            joueurCourant=ListeJoueurs[0];
-            ListeJoueurs[0].Couleur="ROUGE";
-            ListeJoueurs[1].Couleur="JAUNE";
-            System.out.println(ListeJoueurs[0].Nom + " commence");
-        }
-        else {
-            joueurCourant=ListeJoueurs[1];
-            ListeJoueurs[1].Couleur="ROUGE";
-            ListeJoueurs[0].Couleur="JAUNE";
-            System.out.println(ListeJoueurs[1].Nom + " commence");
-        }
         int i;
         boolean fin=false;
         while(fin==false){

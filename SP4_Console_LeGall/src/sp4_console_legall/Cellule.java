@@ -31,6 +31,12 @@ public class Cellule {
         }
     }
     String lireCouleurDuJeton(){
-        return jetonCourant.lireCouleur();
+        
+        if (jetonCourant!=null){
+            return jetonCourant.lireCouleur();
+        }
+        else{
+            return null;
+        }
     }
 }

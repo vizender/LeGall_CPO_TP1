@@ -25,7 +25,7 @@ public class Jeton {
             return "Jaune";
         }
         else {
-            return "ERREUR COULEUR";
+            return "Vide";
         }
     }
     
