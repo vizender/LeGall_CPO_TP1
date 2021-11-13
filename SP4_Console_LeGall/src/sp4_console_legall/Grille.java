@@ -32,7 +32,20 @@ public class Grille {
             
         }
     }
-    
+   boolean verifierDesintegrateur(int colonne){ //Juste avant de poser le jeton, on verifie la presence d'un desintegrateur
+       for (int i = 0; i<CellulesJeu.length; i++){
+           if (CellulesJeu[i][colonne].jetonCourant==null){ // On retrouve la premiere ligne vide ou tombera le jeton
+               if (CellulesJeu[i][colonne].desintegrateur==true){
+                   System.out.println("+1 desintegrateur !");
+                   CellulesJeu[i][colonne].desintegrateur=false; // on retire le desintegrateur
+                   return true; // Si la premiere ligne vide (de jeton), mais a un desintegrateur, on return true
+               }
+               return false; // Si la premiere ligne vide n'a pas de desintegrateur, on return false
+               
+           }
+       }
+       return false; // Si la colonne est pleine, on return false
+   }
     //Ajouter un nouveau jeton
     boolean ajouterJetonDansColonne(Jeton newJeton, int colonne){
         for (int i = 0; i<CellulesJeu.length; i++){ // on parcours la colonne en partant du bas
@@ -52,7 +65,7 @@ public class Grille {
                 }
                 else if (CellulesJeu[i][colonne].trouNoir==false && CellulesJeu[i][colonne].desintegrateur==true){
                     CellulesJeu[i][colonne].desintegrateur=false;
-                    System.out.println("+1 desintegrateur !");
+                    
                     CellulesJeu[i][colonne].jetonCourant=newJeton;
                     CellulesJeu[i][colonne].recupererDesintegrateur();
                 }
