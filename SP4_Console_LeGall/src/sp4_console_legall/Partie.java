@@ -19,11 +19,6 @@ public class Partie {
     Joueur joueurCourant;
     Grille grilleJeu;
     
-    public Partie (Joueur J1, Joueur J2){
-        ListeJoueurs[0]=J1;
-        ListeJoueurs[1]=J2;
-    }
-    
     void attribuerCouleurAuxJoueurs(){
         // on fait un pile ou face pour la couleur des joueurs (aleatoire entre 0 et 1)
         Random r = new Random();
@@ -45,6 +40,15 @@ public class Partie {
     }
     
     void initialiserPartie(){
+        //Création des joueurs
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Donnez le nom du joueur 1 : ");
+        Joueur J1 = new Joueur(sc.nextLine());
+        System.out.println("Donnez le nom de joueur 2 : ");
+        Joueur J2 = new Joueur(sc.nextLine());
+        ListeJoueurs[0] = J1;
+        ListeJoueurs[1] = J2;
+        
         attribuerCouleurAuxJoueurs();
         grilleJeu = new Grille();
         grilleJeu.viderGrille();
@@ -85,7 +89,6 @@ public class Partie {
             else {
                 grilleJeu.CellulesJeu[i1][j1].placerTrouNoir();
                 grilleJeu.CellulesJeu[i1][j1].placerDesintegrateur();
-                System.out.println("D placé " +i1+" "+j1);
             }
         }
         
@@ -102,8 +105,6 @@ public class Partie {
             }
             ListeJoueurs[0].nombreJetonsRestants=ListeJoueurs[0].ListeJetons.length;
             ListeJoueurs[1].nombreJetonsRestants=ListeJoueurs[0].ListeJetons.length;
-            ListeJoueurs[0].nombreDesintegrateurs=1;
-            ListeJoueurs[1].nombreDesintegrateurs=1;
         }
     }
     
@@ -126,11 +127,11 @@ public class Partie {
                     do {
                         i=sc.nextInt();
                     }while(grilleJeu.CellulesJeu[grilleJeu.CellulesJeu.length-1][i].jetonCourant!=null); // tant que la colonne selectionnée est pleine
-                } while(i<0 || i>6); // Tant que la colonne n'est pas valable
-                if (grilleJeu.verifierDesintegrateur(i)==true){
+                } while(i<1 || i>7); // Tant que la colonne n'est pas valable
+                if (grilleJeu.verifierDesintegrateur(i-1)==true){
                     joueurCourant.nombreDesintegrateurs+=1;
                 }
-                if (grilleJeu.ajouterJetonDansColonne(joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants-1], i)==true ){
+                if (grilleJeu.ajouterJetonDansColonne(joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants-1], i-1)==true ){
                     joueurCourant.nombreJetonsRestants-=1;
                     }
             }
@@ -144,13 +145,13 @@ public class Partie {
                         li=sc.nextInt();
                         System.out.println("Quelle colonne ? ");
                         co=sc.nextInt();
-                        if(grilleJeu.CellulesJeu[li][co].lireCouleurDuJeton()!=joueurCourant.Couleur){
+                        if(grilleJeu.CellulesJeu[li-1][co-1].lireCouleurDuJeton()!=joueurCourant.Couleur){
                             break; // On sort du do{}while;, on recommence la boucle while(act) tant que l'action (act) n'est pas valable
                         }
                         else{
                             act=1;
                         }
-                    }while(grilleJeu.recupererJeton(li, co)==false);
+                    }while(grilleJeu.recupererJeton(li-1, co-1)==false);
                 }
                 if(joueurCourant.ajouterJeton()==true);{ // Si le joueur recupere un jeton, on le remets dans sa liste de jetons; On considere que pour recuperer un jeton sa liste doit avoir au moins 1 jeton en moins
                     joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants+1]=new Jeton(joueurCourant.Couleur);
@@ -165,9 +166,9 @@ public class Partie {
                             li=sc.nextInt();
                             System.out.println("Quelle colonne ? ");
                             co=sc.nextInt();
-                    } while (grilleJeu.CellulesJeu[li][co].lireCouleurDuJeton()==joueurCourant.Couleur || grilleJeu.CellulesJeu[li][co].jetonCourant==null);
-                    grilleJeu.CellulesJeu[li][co].supprimerJeton();
-                    grilleJeu.tasserGrille(li);
+                    } while (grilleJeu.CellulesJeu[li-1][co-1].lireCouleurDuJeton()==joueurCourant.Couleur || grilleJeu.CellulesJeu[li-1][co-1].jetonCourant==null);
+                    grilleJeu.CellulesJeu[li-1][co-1].supprimerJeton();
+                    grilleJeu.tasserGrille(li-1);
                     joueurCourant.utiliserDesintegrateur();
                 }
             }

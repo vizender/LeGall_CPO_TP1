@@ -33,7 +33,9 @@ public class Grille {
             
         }
     }
-   boolean verifierDesintegrateur(int colonne){ //Juste avant de poser le jeton, on verifie la presence d'un desintegrateur
+    
+    //En complemement du jeton, gere la presence de desintegrateurs
+    boolean verifierDesintegrateur(int colonne){ //Juste avant de poser le jeton, on verifie la presence d'un desintegrateur
        for (int i = 0; i<CellulesJeu.length; i++){
            if (CellulesJeu[i][colonne].jetonCourant==null){ // On retrouve la premiere ligne vide ou tombera le jeton
                if (CellulesJeu[i][colonne].desintegrateur==true){
@@ -116,24 +118,24 @@ public class Grille {
                 }
                 
                 if (CellulesJeu[i][j].trouNoir==true){
-                    System.out.print(ANSI_WHITE + "N ");
+                    System.out.print(ANSI_CYAN + "T ");
                 }
                 else if (CellulesJeu[i][j].jetonCourant==null && CellulesJeu[i][j].trouNoir==false && CellulesJeu[i][j].desintegrateur==false) {
-                    System.out.print(ANSI_RESET + "  ");
+                    System.out.print(ANSI_RESET + "N ");
                 }
                 else if (CellulesJeu[i][j].jetonCourant==null && CellulesJeu[i][j].trouNoir==true || CellulesJeu[i][j].desintegrateur==true) {
                     
                 }
                 else if (CellulesJeu[i][j].jetonCourant.Couleur=="Rouge"){
-                    System.out.print(ANSI_RED + "R ");
+                    System.out.print(ANSI_RED + "O ");
                 }
                 else if (CellulesJeu[i][j].jetonCourant.Couleur=="Jaune"){
-                    System.out.print(ANSI_YELLOW + "J ");
+                    System.out.print(ANSI_YELLOW + "O ");
                 }
             }
-            System.out.println(ANSI_RESET + "" + i);
+            System.out.println(ANSI_RESET + "" + (i+1));
         }
-        System.out.println("0 1 2 3 4 5 6");
+        System.out.println("1 2 3 4 5 6 7");
     }
    
     //Verif de l'occupation par un jeton de la cellule
