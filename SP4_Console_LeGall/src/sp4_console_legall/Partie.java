@@ -47,6 +47,7 @@ public class Partie {
     void initialiserPartie(){
         attribuerCouleurAuxJoueurs();
         grilleJeu = new Grille();
+        grilleJeu.viderGrille();
         
         //On place 3 trous noirs et 3 desintegrateurs sur des coord differentes
         for (int k= 0; k<3; k++){
@@ -101,6 +102,8 @@ public class Partie {
             }
             ListeJoueurs[0].nombreJetonsRestants=ListeJoueurs[0].ListeJetons.length;
             ListeJoueurs[1].nombreJetonsRestants=ListeJoueurs[0].ListeJetons.length;
+            ListeJoueurs[0].nombreDesintegrateurs=1;
+            ListeJoueurs[1].nombreDesintegrateurs=1;
         }
     }
     
@@ -124,8 +127,10 @@ public class Partie {
                         i=sc.nextInt();
                     }while(grilleJeu.CellulesJeu[grilleJeu.CellulesJeu.length-1][i].jetonCourant!=null); // tant que la colonne selectionnée est pleine
                 } while(i<0 || i>6); // Tant que la colonne n'est pas valable
-                
-                if (grilleJeu.ajouterJetonDansColonne(joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants-1], i)==true){
+                if (grilleJeu.verifierDesintegrateur(i)==true){
+                    joueurCourant.nombreDesintegrateurs+=1;
+                }
+                if (grilleJeu.ajouterJetonDansColonne(joueurCourant.ListeJetons[joueurCourant.nombreJetonsRestants-1], i)==true ){
                     joueurCourant.nombreJetonsRestants-=1;
                     }
             }
@@ -156,11 +161,11 @@ public class Partie {
                     int li;
                     int co;
                     do { //idem, condition etant que le jeton doit etre adverse
-                            System.out.println("A quel ligne récuperer le desintegrateur? ");
+                            System.out.println("A quel ligne placer le desintegrateur? ");
                             li=sc.nextInt();
                             System.out.println("Quelle colonne ? ");
                             co=sc.nextInt();
-                    } while (grilleJeu.CellulesJeu[li][co].lireCouleurDuJeton()!=joueurCourant.Couleur);
+                    } while (grilleJeu.CellulesJeu[li][co].lireCouleurDuJeton()==joueurCourant.Couleur || grilleJeu.CellulesJeu[li][co].jetonCourant==null);
                     grilleJeu.CellulesJeu[li][co].supprimerJeton();
                     grilleJeu.tasserGrille(li);
                     joueurCourant.utiliserDesintegrateur();
