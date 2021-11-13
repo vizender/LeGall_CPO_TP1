@@ -37,14 +37,26 @@ public class Grille {
     boolean ajouterJetonDansColonne(Jeton newJeton, int colonne){
         for (int i = 0; i<CellulesJeu.length; i++){ // on parcours la colonne en partant du bas
             if (CellulesJeu[i][colonne].jetonCourant==null){ //Si la colonne n'a pas de jeton
-                if (CellulesJeu[i][colonne].trouNoir==false){ //Si la colonne n'as pas de trou noir
+                if (CellulesJeu[i][colonne].trouNoir==false && CellulesJeu[i][colonne].desintegrateur==false){ //Si la colonne n'as pas de trou noir
                     CellulesJeu[i][colonne].jetonCourant=newJeton;
                 }
-                else{
+                else if (CellulesJeu[i][colonne].trouNoir==true && CellulesJeu[i][colonne].desintegrateur==false){
                     CellulesJeu[i][colonne].trouNoir=false; // On retire le trou noir
                     System.out.println("le trou noir mange le jeton " + newJeton.lireCouleur());
                 }
-                return true; // meme si trou noir, on renjoi true apres avoir mangé le trou noir, car le joueur ne peu pas rejouer
+                else if (CellulesJeu[i][colonne].trouNoir==true && CellulesJeu[i][colonne].desintegrateur==true){
+                    CellulesJeu[i][colonne].trouNoir=false; // On retire le trou noir
+                    CellulesJeu[i][colonne].desintegrateur=false;
+                    System.out.println("le trou noir mange le jeton " + newJeton.lireCouleur() + "; un desintegrateur se trouvait derriere !");
+                    CellulesJeu[i][colonne].recupererDesintegrateur();
+                }
+                else if (CellulesJeu[i][colonne].trouNoir==false && CellulesJeu[i][colonne].desintegrateur==true){
+                    CellulesJeu[i][colonne].desintegrateur=false;
+                    System.out.println("+1 desintegrateur !");
+                    CellulesJeu[i][colonne].jetonCourant=newJeton;
+                    CellulesJeu[i][colonne].recupererDesintegrateur();
+                }
+                return true; // meme si trou noir et/ou desintegrateur, on renvoi true apres avoir mangé le trou noir, car le joueur ne peu pas rejouer
             }
         }
         return false;
@@ -85,17 +97,17 @@ public class Grille {
         for (int i=5; i>=0; i--){
             
             for (int j =0; j<CellulesJeu[0].length; j++){
+                if (CellulesJeu[i][j].desintegrateur==true && CellulesJeu[i][j].trouNoir==false){ // On affiche le desintegrateur que si il n'y a pas de trou noir
+                    System.out.print(ANSI_GREEN+ "D ");
+                }
+                
                 if (CellulesJeu[i][j].trouNoir==true){
                     System.out.print(ANSI_WHITE + "N ");
                 }
-                if (CellulesJeu[i][j].desintegrateur==true){
-                    System.out.print(ANSI_GREEN + "D ");
+                else if (CellulesJeu[i][j].jetonCourant==null && CellulesJeu[i][j].trouNoir==false && CellulesJeu[i][j].desintegrateur==false) {
+                    System.out.print(ANSI_RESET + "  ");
                 }
-                
-                else if (CellulesJeu[i][j].jetonCourant==null && CellulesJeu[i][j].trouNoir==false) {
-                    System.out.print("  ");
-                }
-                else if (CellulesJeu[i][j].jetonCourant==null && CellulesJeu[i][j].trouNoir==true) {
+                else if (CellulesJeu[i][j].jetonCourant==null && CellulesJeu[i][j].trouNoir==true || CellulesJeu[i][j].desintegrateur==true) {
                     
                 }
                 else if (CellulesJeu[i][j].jetonCourant.Couleur=="Rouge"){
@@ -169,15 +181,6 @@ public class Grille {
         return false;
     }
     
-    boolean placerTrouNoir(int i, int j){
-        if (CellulesJeu[i][j].trouNoir==false){
-            CellulesJeu[i][j].placerTrouNoir();
-            return true;
-        }
-        
-        return false;
-    }
-     
     void tasserGrille(int i){
         for (int k=i; k<5; k++){
             for (int j=0; j<=6; j++){
@@ -187,6 +190,33 @@ public class Grille {
                 }
             }
         }
+    }
+    
+    boolean placerTrouNoir(int i, int j){
+    if (CellulesJeu[i][j].trouNoir==false){
+        CellulesJeu[i][j].placerTrouNoir();
+        return true;
+    }
+
+    return false;
+    }
+    
+    boolean placerDesintegrateur(int i, int j){
+    if (CellulesJeu[i][j].desintegrateur==false){
+        CellulesJeu[i][j].desintegrateur=true;
+        return true;
+    }
+
+    return false;
+    }
+    
+    boolean supprimerJeton(int i, int j){
+        if (CellulesJeu[i][j].jetonCourant!=null){
+            CellulesJeu[i][j].jetonCourant=null;
+            tasserGrille(i);
+            return true;
+        }
+        return false;
     }
     
     boolean recupererJeton(int i, int j){

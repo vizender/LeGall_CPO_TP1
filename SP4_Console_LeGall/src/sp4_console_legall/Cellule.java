@@ -53,7 +53,7 @@ public class Cellule {
     }
     
     boolean placerDesintegrateur(){
-        if (desintegrateur!=false){
+        if (desintegrateur==false){
             desintegrateur=true;
             return true;
         }
@@ -76,6 +76,14 @@ public class Cellule {
         else{
             return null;
         }
+    }
+    
+    boolean recupererDesintegrateur(){
+        if(desintegrateur==true){
+            desintegrateur=false;
+            return true;
+        }
+        return false;
     }
     
     boolean activerTrouNoir(){
