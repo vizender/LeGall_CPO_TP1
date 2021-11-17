@@ -17,7 +17,7 @@ public class Partie {
     
     Joueur ListeJoueurs [] = new Joueur[2];
     Joueur joueurCourant;
-    Grille grilleJeu;
+    Grille grilleJeu = new Grille();
     
     void attribuerCouleurAuxJoueurs(){
         // on fait un pile ou face pour la couleur des joueurs (aleatoire entre 0 et 1)
@@ -50,7 +50,7 @@ public class Partie {
         ListeJoueurs[1] = J2;
         
         attribuerCouleurAuxJoueurs();
-        grilleJeu = new Grille();
+
         grilleJeu.viderGrille();
         
         //On place 3 trous noirs et 3 desintegrateurs sur des coord differentes
