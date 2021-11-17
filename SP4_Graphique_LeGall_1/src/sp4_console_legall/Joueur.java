@@ -28,10 +28,15 @@ public class Joueur {
     
     //Le joueur peut recevoir des jetons jusqu'a une limite max (ici la taille de liste jeton, 21)
     boolean ajouterJeton() {
-        if (nombreJetonsRestants>ListeJetons.length){
+        if (nombreJetonsRestants>=ListeJetons.length){
             return false;
         }
         else {
+            int i=0;
+            while (ListeJetons[i]!=null){
+                i+=1;
+            }
+            ListeJetons[i]=new Jeton(Couleur);
             nombreJetonsRestants+=1;
             return true;
         }

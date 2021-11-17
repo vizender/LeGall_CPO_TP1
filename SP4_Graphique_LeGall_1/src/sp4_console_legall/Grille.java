@@ -197,7 +197,7 @@ public class Grille {
         return false;
     }
     
-    void tasserGrille(int i){
+    void tasserColonne(int i){
         for (int k=i; k<5; k++){
             for (int j=0; j<=6; j++){
                 if (CellulesJeu[k][j].jetonCourant==null){
@@ -205,6 +205,12 @@ public class Grille {
                     CellulesJeu[k+1][j].jetonCourant=null;
                 }
             }
+        }
+    }
+    
+    void tasserGrille(){
+        for (int i=0; i<7; i++){
+            tasserColonne(i);
         }
     }
     
@@ -229,7 +235,7 @@ public class Grille {
     boolean supprimerJeton(int i, int j){
         if (CellulesJeu[i][j].jetonCourant!=null){
             CellulesJeu[i][j].jetonCourant=null;
-            tasserGrille(i);
+            tasserColonne(i);
             return true;
         }
         return false;
@@ -238,7 +244,7 @@ public class Grille {
     boolean recupererJeton(int i, int j){
         if (CellulesJeu[i][j].jetonCourant!=null){
             CellulesJeu[i][j].jetonCourant=null;
-            tasserGrille(i);
+            tasserColonne(i);
             return true;
         }
         return false;

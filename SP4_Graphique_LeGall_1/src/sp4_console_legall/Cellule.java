@@ -74,7 +74,7 @@ public class Cellule {
             return jetonCourant.lireCouleur();
         }
         else{
-            return null;
+            return "vide";
         }
     }
     

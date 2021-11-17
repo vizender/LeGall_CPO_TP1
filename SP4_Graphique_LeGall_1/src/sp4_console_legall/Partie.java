@@ -169,7 +169,7 @@ public class Partie {
                             co=sc.nextInt();
                     } while (grilleJeu.CellulesJeu[li-1][co-1].lireCouleurDuJeton()==joueurCourant.Couleur || grilleJeu.CellulesJeu[li-1][co-1].jetonCourant==null);
                     grilleJeu.CellulesJeu[li-1][co-1].supprimerJeton();
-                    grilleJeu.tasserGrille(li-1);
+                    grilleJeu.tasserColonne(li-1);
                     joueurCourant.utiliserDesintegrateur();
                 }
             }
