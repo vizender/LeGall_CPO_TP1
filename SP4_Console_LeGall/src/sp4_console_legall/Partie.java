@@ -126,8 +126,9 @@ public class Partie {
                 do {
                     do {
                         i=sc.nextInt();
-                    }while(grilleJeu.CellulesJeu[grilleJeu.CellulesJeu.length-1][i].jetonCourant!=null); // tant que la colonne selectionnée est pleine
-                } while(i<1 || i>7); // Tant que la colonne n'est pas valable
+                    } while(i<1 || i>7); // Tant que la colonne n'est pas valable
+                }while(grilleJeu.CellulesJeu[grilleJeu.CellulesJeu.length-1][i].jetonCourant!=null); // tant que la colonne selectionnée est pleine
+                
                 if (grilleJeu.verifierDesintegrateur(i-1)==true){
                     joueurCourant.nombreDesintegrateurs+=1;
                 }
